@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}{{ block.super }} - Homepage {% endblock head_title %}
+{% block content %}
+
+<div class="container-fluid" style="width: 1300px;">
+    <div class="row justify-content-center ">
+
+        <div class="card w-100 mt-3 mb-3" style="width: 100px; height: 170px;">
+
+            <div class="card-body">
+                <div class="row justify-content-center">
+                    <h3 class="col-6 text-center mt-auto">BYBIKE - Le bici del momento</h5>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-2">
+                        <a href="{% url 'categorie' 'D' %}" class="btn btn-success btn-default">Bici da
+                            corsa</a>
+                    </div>
+                    <div class="col-2">
+                        <a href="{% url 'categorie' 'M' %}" class="btn btn-success">Mountain Bike</a>
+                    </div>
+                    <div class="col-2">
+                        <a href="{% url 'categorie' 'C' %}" class="btn btn-success">Bici da Città</a>
+                    </div>
+                    <div class="col-2">
+                        <a href="{% url 'categorie' 'E' %}" class="btn btn-success">Bici Elettriche</a>
+                    </div>
+                    <div class="col-2">
+                        <a href="{% url 'categorie' 'B' %}" class="btn btn-success">Bici per Bambini</a>
+                    </div>
+                    <div class="col-2">
+                        <a href="{% url 'categorie' 'A' %}" class="btn btn-success">Accessori</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<div class="container-fluid" style="width: 1300px;">
+    <h2>I migliori prezzi per articoli nuovi</h2>
+    <hr>
+
+    {% if not newconvenient_list %}
+    <h4 class="text-muted">Ci dispiace! Non sono presenti articoli nuovi !</h4>
+    {% endif %}
+    <section class="text-center mb-4">
+
+        <div class="row wow fadeIn">
+            {% for item in newconvenient_list%}
+            <div class="col-lg-3 col-md-6 mb-4">
+
+                <div class="card">
+
+                    <div class="view overlay">
+                        {% if item.immagine %}
+                        <img src="{{ item.immagine.url }}" class="card-img-top" width="100" height="200">
+                        {% endif %}
+                        <a href="{{ item.visualizza_articolo }}">
+                            <div class="mask rgba-white-slight"></div>
+                        </a>
+                    </div>
+                    <div class="card-body text-center">
+
+                        <h3>{{ item.get_categoria_display }}</h3>
+
+                        <h5>
+                            <strong>
+                                <a href="{{ item.get_absolute_url }}" class="dark-grey-text">{{ item.titolo }}
+                                </a>
+                            </strong>
+                        </h5>
+
+                        <h4 class="font-weight-bold blue-text">
+                            {{ item.prezzo }}0 €
+                        </h4>
+                        <p class="text-muted">{{ item.data|timesince }} fa</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+        </div>
+
+
+    </section>
+    <h2>I migliori prezzi per articoli usati</h2>
+    <hr>
+
+    {% if not usedconvenient_list %}
+    <h4 class="text-muted">Ci dispiace! Non ci sono articoli che soddisfano la richiesta!</h4>
+    {% endif %}
+    <section class="text-center mb-4">
+
+        <div class="row wow fadeIn">
+
+            {% for item in usedconvenient_list%}
+            <div class="col-lg-3 col-md-6 mb-4">
+
+                <div class="card">
+
+                    <div class="view overlay">
+                        {% if item.immagine %}
+                        <img src="{{ item.immagine.url }}" class="card-img-top" width="100" height="200">
+                        {% endif %}
+                        <a href="{{ item.get_absolute_url }}">
+                            <div class="mask rgba-white-slight"></div>
+                        </a>
+                    </div>
+                    <div class="card-body text-center">
+
+                        <h3>{{ item.get_categoria_display }}</h3>
+
+                        <h5>
+                            <strong>
+                                <a href="{{ item.get_absolute_url }}" class="dark-grey-text">{{ item.titolo }}
+                                </a>
+                            </strong>
+                        </h5>
+
+                        <h4 class="font-weight-bold blue-text">
+
+                            {{ item.prezzo }}0 € {% if item.condizioni == 'U' %}
+                            <h6 style="color: red"> {{ item.get_condizioni_display }} </h6>
+                            {% else %}
+                            <h6 style="color: green"> {{ item.get_condizioni_display }} </h6>
+                            {% endif %}
+
+                        </h4>
+                        <p class="text-muted">{{ item.data|timesince }} fa</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+        </div>
+        <br>
+
+    </section>
+    {% if request.user.is_authenticated %}
+    <h2>Consigliati per te</h2>
+    <hr>
+    {% if not recommendation_list %}
+    <h4 class="text-muted">Ci dispiace! Non abbiamo niente da consigliarti, fai acquisti per avere
+        suggerimenti!</h4>
+    {% endif %}
+
+
+    <section class="text-center mb-4">
+
+        <div class="row wow fadeIn">
+
+            {% for item in recommendation_list %}
+            <div class="col-lg-3 col-md-6 mb-4">
+
+                <div class="card">
+
+                    <div class="view overlay">
+                        {% if item.immagine %}
+                        <img src="{{ item.immagine.url }}" class="card-img-top" width="100" height="200">
+                        {% endif %}
+                        <a href="{{ item.get_absolute_url }}">
+                            <div class="mask rgba-white-slight"></div>
+                        </a>
+                    </div>
+                    <div class="card-body text-center">
+
+                        <h3>{{ item.get_categoria_display }}</h3>
+
+                        <h5>
+                            <strong>
+                                <a href="{{ item.get_absolute_url }}" class="dark-grey-text">{{ item.titolo }}
+                                </a>
+                            </strong>
+                        </h5>
+
+                        <h4 class="font-weight-bold blue-text">
+                            {{ item.prezzo }}0 € {% if item.condizioni == 'U' %}
+                            <h6 style="color: red"> {{ item.get_condizioni_display }} </h6>
+                            {% else %}
+                            <h6 style="color: green"> {{ item.get_condizioni_display }} </h6>
+                            {% endif %}
+                        </h4>
+                        <p class="text-muted">{{ item.data|timesince }} fa</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+        </div>
+
+    </section>
+    {% endif %}
+</div>
+
+
+{% endblock %}

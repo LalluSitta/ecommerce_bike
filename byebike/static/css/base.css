@@ -1,0 +1,25 @@
+.navbar {
+ /* fallback for old browsers */
+  background: #43e97b;
+
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(to top, rgba(132, 250, 176, 0.75), rgba(143, 211, 244, 0.75));
+
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to top, rgba(132, 250, 176, 0.75), rgba(143, 211, 244, 0.75))
+}
+
+.a {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 50px;
+}
+body{
+  /* fallback for old browsers */
+  background: #43e97b;
+
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(to bottom, rgba(0, 243, 22, 0.5), rgba(46, 252, 255, 0.5));
+
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to bottom, rgba(0, 243, 22, 0.5), rgba(46, 252, 255, 0.5))
+}

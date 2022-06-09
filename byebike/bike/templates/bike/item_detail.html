@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head_title %}{{ block.super }} - {{ item.titolo }}{% endblock head_title %}
+
+{% block content %}
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.13.0/css/all.css">
+<link rel="stylesheet" href="static/css/item.css">
+
+<div class="container mt-5">
+    <div class="card border-success mb-3" style="max-width: 1070px;">
+        <div class="card-header">
+            <h3><strong>{{ item.titolo }}</strong></h3>
+            <p class="card-text">
+                <small class="text-muted">Inserito : {{ item.data }} |</small>
+                <small class="text-muted">Venditore :<a href="{% url 'profile' item.venditore %}"  class="dark-grey-text"> {{item.venditore}} </a>
+</small>
+            </p>
+        </div>
+        <div class="row g-0">
+            <div class="col-md-4 ml-5">
+                <img src="{{ item.immagine.url }}" height="300" width="200"
+                     class="img-fluid rounded-start ml-3 mr-3 mt-3 mb-3" alt="Foto dell' articolo">
+            </div>
+
+            <div class="card-body col-7">
+                <p class="card-text"><strong>Categoria : </strong><a href="{% url 'categorie' item.categoria %}"  class="dark-grey-text">{{ item.get_categoria_display}} </a></p>
+                <p class="card-text"><strong>Descrizione : </strong>{{ item.descrizione }}</p>
+                <p class="card-text"><strong>Condizione : </strong>{{ item.get_condizione_display }}</p>
+                <h3 class="card-text mb-3text-left"><strong><i>Prezzo : {{ item.prezzo }}0 €</i></strong></h3>
+
+
+            {% if item.venditore.username != request.user.username %}
+            {% if not item.ordinato %}
+            <a href="{{ object.get_add_to_cart_url }}" class="btn btn-success mb-3">
+                <i class="fas fa-cart-plus"></i>
+                Aggiungi al carrello
+            </a>
+            {% endif %}
+            {% else %}
+            <a href="{%  url 'item_modify' item.id %}" class="btn btn-warning mb-3">
+                <i class="far fa-edit"></i>
+                Modifica
+            </a>
+            <a href="{%  url 'item_delete' item.id %}" class="btn btn-danger mb-3">
+                <i class="fas fa-trash-alt"></i>
+                Elimina
+            </a>
+            {% endif %}
+
+            <button class="btn btn-success mb-3 mx-auto" onclick="window.history.go(-1);">
+                <i class="fas fa-undo"></i>
+                Indietro
+            </button>
+                            </div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

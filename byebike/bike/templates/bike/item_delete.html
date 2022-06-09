@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head_title %}{{ block.super }} - Elimina Articolo{% endblock head_title %}
+
+{% block content %}
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.13.0/css/all.css">
+
+<div class="container mt-5 ">
+    <div class="card border-success mb-3" style="max-width: 1070px;">
+        <div class="card-header">
+            <h3><strong>Elimina articolo</strong></h3>
+            <p class="card-text">
+            <div class="card border-success mb-3" style="max-width: 1070px;">
+                <div class="card-body ">
+                    <h5 class="card-subtitle mb-2 text-muted text-center">Vuoi davvero cancellare l'articolo- {{item.titolo}} ?</h5>
+                    <br>
+                    <h6 class="card-subtitle mb-2 text-muted text-center"> Condizione : {{ item.get_condizione_display}} </h6>
+                    <br>
+                    <form method="post">{% csrf_token %}
+                        <input class="btn btn-danger" type="submit" value="Elimina">
+                        <a class="btn btn-secondary float-right"
+                           href="{%  url 'profile' username=request.user.username %}">
+                            <i class="fas fa-undo"></i>
+                            Indietro</a>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+        {% endblock content %}

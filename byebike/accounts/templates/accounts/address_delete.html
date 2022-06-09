@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head_title %}{{ block.super }} - Elimina Indirizzo{% endblock head_title %}
+
+{% block content %}
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.13.0/css/all.css">
+
+    <div class="container mt-5 ">
+        <div class="card border-success mb-3" style="max-width: 1070px;">
+            <div class="card-header">
+                <h3><strong>Cancella Indirizzo</strong></h3>
+                <p class="card-text">
+                <div class="card border-success mb-3" style="max-width: 1070px;">
+                    <div class="card-body ">
+                        <h5 class="card-subtitle mb-2 text-muted text-center"> Vuoi davvero cancellare l'indirizzo
+                            {{ object.città }} via
+                            {{ object.via }} {{ object.interno }} ?</h5>
+                        <br>
+                         <h6 class="card-subtitle mb-2 text-muted text-center"> CAP: {{ object.cap }} </h6>
+                        <br>
+                        <form method="post">{% csrf_token %}
+                            <input class="btn btn-danger" type="submit" value="Elimina">
+                            <a class="btn btn-secondary float-right"
+                               href="{% url 'address_page' username=request.user.username %}">Annulla</a>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+{% endblock content %}

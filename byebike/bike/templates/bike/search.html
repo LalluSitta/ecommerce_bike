@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+    <div class="row">
+        <div class="col-2 ">
+            <div class="sidenav">
+                {% include "sidebar.html" %}
+            </div>
+        </div>
+        <div class="col-9">
+            <section class="text-center mb-4 mt-3">
+                <h3 class="text-left"><i>Articoli</i></h3>
+                <hr>
+                <div class="row wow fadeIn">
+                    {% for item in items %}
+                    <div class="col-lg-3 col-md-6 mb-4">
+
+                        <div class="card">
+
+                            <div class="view overlay">
+                                {% if item.immagine %}
+                                <img src="{{ item.immagine.url }}" class="card-img-top" width="100" height="200">
+                                {% endif %}
+                                <a href="{{ item.visualizza_articolo }}">
+                                    <div class="mask rgba-white-slight"></div>
+                                </a>
+                            </div>
+                            <div class="card-body text-center">
+                                <h4>
+                                    <strong>
+                                        <a href="{{ item.get_absolute_url }}" class="dark-grey-text">{{ item.titolo }}
+                                        </a>
+                                    </strong>
+                                </h4>
+
+                                <h5>{{ item.get_categoria_display }}</h5>
+
+
+
+                                <h4 class="font-weight-bold blue-text">
+                                    {{ item.prezzo}}0 € {% if item.condizioni == 'U' %}
+                                    <h6 style="color: red"> {{ item.get_condizione_display }} </h6>
+                                    {% else %}
+                                    <h6 style="color: green"> {{ item.get_condizione_display }} </h6>
+                                    {% endif %}
+
+                                </h4>
+                                <p class="text-muted">{{ item.data|timesince }} fa</p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+    
+                    {% endfor %}
+                </div>
+    
+            </section>
+        </div>
+    </div>
+
+</form>
+{% endblock content %}
