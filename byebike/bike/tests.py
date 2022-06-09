@@ -5,6 +5,10 @@ from django.contrib.auth.models import User
 from .models import Item, ShippingAddress
 
 
+'''
+Test per il login di un utente 
+Prima viene testato con delle credenziali errate, poi con credenziali corrette
+'''
 class BikeCase(TestCase):
 
     def setUp(self):
