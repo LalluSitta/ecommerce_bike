@@ -2,7 +2,7 @@
 projectecommercebike
 
 <b>1) Clonare la repository</b>
-      <li>git clone </li>
+      <li>git clone https://github.com/LalluSitta/ecommerce_bike.git</li>
       <br>
 <b>2) Andare nella cartella contenente il progetto</b>
       <li>cd .\byebike</li>
